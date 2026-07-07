@@ -1,5 +1,6 @@
 \# Wearable Vitals Monitor — PPG-Based Heart Rate Estimation
 
+**[Live Demo →](https://ppg-vitals-monitor.streamlit.app/)**
 
 
 Estimates heart rate (bpm) from wrist-worn PPG and accelerometer signals during daily-life activities, using a CNN+LSTM model trained on the \*\*PPG-DaLiA\*\* dataset. Motion artifacts are one of the core challenges in wearable HR sensing — this project explicitly models them via an accelerometer fusion branch rather than relying on PPG alone.
