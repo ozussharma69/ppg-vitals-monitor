@@ -65,24 +65,25 @@ def main():
 
     model = load_model()
 
-    # Subjects S14/S15 were held out during training in train.py, so predictions
+ # Only S14 and S15's processed data is bundled with this deployment (kept small
+    # on purpose). Both were held out during training in train.py, so predictions
     # on them are genuinely out-of-sample -- an honest demo, not a memorized result.
-    available_subjects = [f"S{i}" for i in range(1, 16)]
+    available_subjects = [
+        s for s in (f"S{i}" for i in range(1, 16))
+        if os.path.exists(os.path.join(DATA_DIR, f"{s}.npz"))
+    ]
 
     with st.sidebar:
         st.header("Controls")
         subject_id = st.selectbox(
             "Subject",
             available_subjects,
-            index=13,
-            help="S14 and S15 were held out during training (in train.py) -- predictions on "
-                 "them are genuinely out-of-sample. Other subjects were seen during training.",
+            help="Only S14 and S15 are bundled with this deployment. Both were held out "
+                 "during training (in train.py) -- predictions on them are genuinely "
+                 "out-of-sample, not memorized.",
         )
         ppg, acc, hr_label, activity = load_subject_data(subject_id)
         window_idx = st.slider("Window index", 0, len(hr_label) - 1, len(hr_label) // 2)
-
-        if subject_id not in ("S14", "S15"):
-            st.info("This subject's data was used during training -- prediction will likely look better than real-world performance. Pick S14 or S15 for an honest out-of-sample demo.")
 
     ppg_window = ppg[window_idx]
     acc_window = acc[window_idx]
