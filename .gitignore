@@ -1,6 +1,10 @@
 venv/
-data/
+data/raw/
+data/PPG_FieldStudy/
+data/PPG_FieldStudy.zip
+data/processed/*
+!data/processed/S14.npz
+!data/processed/S15.npz
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-reports/ppg_hr_model.pth
